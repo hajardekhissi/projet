@@ -1,6 +1,0 @@
-ID: 1
-Nom: Bella
-Espèce: Chien
-Année de naissance: 2018
-Poids: 10.40 kg
-Commentaire: trés amical
