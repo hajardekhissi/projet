@@ -3,10 +3,10 @@
 #include "animal.h"
 
 void adopterAnimal() {
-    printf("--- Début de l'adoption d'un animal ---\n");
+    printf("Nous allons tout de suite demmarer l'adoption\n");
 
     // Ouvrir le fichier des animaux en mode lecture
-    FILE *fichier_des_animaux = fopen("animaux/animaux.txt", "r");
+    FILE *fichier_des_animaux = fopen("animaux.txt", "r");
     if (fichier_des_animaux == NULL) {
         printf("Erreur : Impossible d'ouvrir le fichier des animaux.\n");
         return;
@@ -18,7 +18,7 @@ void adopterAnimal() {
     scanf("%d", &id_cherche);
 
     // Créer un fichier temporaire pour stocker les animaux restants
-    FILE *fichier_temp = fopen("animaux/animaux_temp.txt", "w");
+    FILE *fichier_temp = fopen("animaux_temp.txt", "w");
     if (fichier_temp == NULL) {
         printf("Erreur : Impossible de créer le fichier temporaire.\n");
         fclose(fichier_des_animaux);
@@ -34,7 +34,8 @@ void adopterAnimal() {
         if (animal.id == id_cherche) {
             animal_trouve = 1;  // L'animal a été trouvé
         } else {
-            // Écrire les animaux non adoptés dans le fichier temporaire
+            // Écrire les animaux non adoptés dans le fichier temporairea
+            
             fprintf(fichier_temp, "%d;%s;%s;%d;%.2f;%s\n", animal.id, animal.nom, animal.espece, 
                     animal.annee_naissance, animal.poids, animal.commentaire);
         }
@@ -56,5 +57,5 @@ void adopterAnimal() {
         printf("Désolé, aucun animal trouvé avec l'ID %d.\n", id_cherche);
     }
 
-    printf("--- Fin de l'adoption ---\n");
+    printf("Nous avons terminer la procedure d'adoption\n");
 }

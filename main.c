@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <time.h> // Pour srand() et time()
+#include <stdlib.h>
 #include "ajouter.h"
 #include "affichage.h"
 #include "rechercher.h"
@@ -7,7 +9,8 @@
 #include "nourriture.h" // ➕ pour afficherNourriture()
 #include "inventaire.h"
 #include "identifiant_ani.h" // ➕ pour genererID()
-#include <stdlib.h>
+
+
 
 int main() {
     // Nettoyage automatique au démarrage
