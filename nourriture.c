@@ -6,6 +6,9 @@
 #include "nourriture.h"
 #include "affichage.h"
 #include "adopter.h"
+#include "inventaire.h"
+#include "rechercher.h"
+
 
 void afficherNourriture() {
     FILE *fichier = fopen("animaux.txt", "r");

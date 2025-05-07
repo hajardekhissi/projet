@@ -1,25 +1,12 @@
-# Variables
-CC = gcc                    # Le compilateur
-CFLAGS = -Wall -g            # Options de compilation (détails sur les warnings et débogage)
-LDFLAGS =                    # Si tu as besoin de lier des bibliothèques supplémentaires
+CC = gcc
+CFLAGS = -Wall -g
+OBJS = main.o ajouter.o affichage.o animal.o choisirespece.o inventaire.o nourriture.o rechercher.o nettoyeur.o adopter.o identifiant_ani.o
 
-# Liste des fichiers source
-SRC = main.c ajouter.c affichage.c animal.c choisirespece.c inventaire.c nourriture.c rechercher.c
+chenil.exe: $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o chenil.exe
 
-# Transformation des fichiers .c en .o (objets)
-OBJ = $(SRC:.c=.o)
-
-# Nom de l'exécutable final
-EXEC = chenil.exe
-
-# Règle par défaut (créer l'exécutable)
-$(EXEC): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(EXEC)
-
-# Règle pour créer les fichiers objets à partir des fichiers sources
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Règle pour nettoyer les fichiers générés (objets et l'exécutable)
 clean:
-	rm -f $(OBJ) $(EXEC)
+	rm -f $(OBJS) chenil.exe

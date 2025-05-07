@@ -1,6 +1,5 @@
 #include "animal.h"
 #include <stdio.h>
-
 int comparer(char *a, char *b) {
     int i = 0;
     
@@ -21,20 +20,19 @@ int comparer(char *a, char *b) {
     return 0;  // Une chaîne est plus longue que l'autre
 }
 
-
 //Ca c'est la fonction  qui convertit une chaine de caractere en espece c'est celle qu'on a defini dans animal.h
 Espece chaineVersEspece(const char* str){
 
-    if (comparerChaines(str, "Chien")==0){
+    if (comparer(str, "Chien")==0){
      return CHIEN;
     }
-    if (comparerChaines(str, "Chat")==0){
+    if (comparer(str, "Chat")==0){
         return CHAT;
     }
-    if (comparerChaines(str, "Hamster")==0){
+    if (comparer(str, "Hamster")==0){
         return HAMSTER;
     }
-    if (comparerChaines(str, "Autruche")==0){
+    if (comparer(str, "Autruche")==0){
 
     return AUTRUCHE;
     }
