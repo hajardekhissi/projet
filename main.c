@@ -6,9 +6,12 @@
 #include "adopter.h"
 #include "nourriture.h" // ➕ pour afficherNourriture()
 #include "inventaire.h"
+#include "identifiant_ani.h" // ➕ pour genererID()
+#include <stdlib.h>
 
 int main() {
     // Nettoyage automatique au démarrage
+    srand(time(NULL)); // Initialisation du générateur de nombres aléatoires
     nettoyerFichierAnimaux();
 
     int choix;

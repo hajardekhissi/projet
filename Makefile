@@ -1,37 +1,25 @@
-# Compilateur et options
-CC = gcc
-CFLAGS = -Wall -Wextra
+# Variables
+CC = gcc                    # Le compilateur
+CFLAGS = -Wall -g            # Options de compilation (détails sur les warnings et débogage)
+LDFLAGS =                    # Si tu as besoin de lier des bibliothèques supplémentaires
 
-# Liste des fichiers objets nécessaires pour l'exécutable
-# (Utilisation de \ pour séparer sur plusieurs lignes pour la lisibilité)
-OBJECTS = adopterAnimal.o affichage.o ajouterAnimal.o \
-          animal.o comparer.o id.o inventaire.o main.o \
-          nettoyeur.o nourriture.o rechercherAnimaux.o \
-          utils.o retourmenu.o 
+# Liste des fichiers source
+SRC = main.c ajouter.c affichage.c animal.c choisirespece.c inventaire.c nourriture.c rechercher.c
+
+# Transformation des fichiers .c en .o (objets)
+OBJ = $(SRC:.c=.o)
 
 # Nom de l'exécutable final
-TARGET = chenil.exe
+EXEC = chenil.exe
 
-# Règle par défaut (celle exécutée si on tape juste "make")
-# Dépend de l'exécutable final.
-all: $(TARGET)
+# Règle par défaut (créer l'exécutable)
+$(EXEC): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(EXEC)
 
-# Règle pour créer l'exécutable final à partir des fichiers objets
-# La ligne de commande DOIT commencer par une TABULATION
-$(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET)
-
-# Règle générique pour compiler un fichier .c en .o
-# Compile si le .c correspondant est plus récent que le .o
-# La ligne de commande DOIT commencer par une TABULATION
+# Règle pour créer les fichiers objets à partir des fichiers sources
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Règle pour nettoyer les fichiers générés
-# Les lignes de commande DOIVENT commencer par une TABULATION
+# Règle pour nettoyer les fichiers générés (objets et l'exécutable)
 clean:
-	rm -f $(TARGET)
-	rm -f *.o
-
-# Déclarer les cibles qui ne sont pas des fichiers (bonne pratique)
-.PHONY: all clean
+	rm -f $(OBJ) $(EXEC)
