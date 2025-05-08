@@ -15,7 +15,7 @@
 int main() {
     // Nettoyage automatique au démarrage
     srand(time(NULL)); // Initialisation du générateur de nombres aléatoires
-   nettoyerFichierAnimaux();
+
 
     int choix;
     do {
