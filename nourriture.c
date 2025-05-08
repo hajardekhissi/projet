@@ -62,7 +62,7 @@ void afficherNourriture() {
             autruche += quantite;
         }
         else {
-            printf("Espèce inconnue : %s (je sais pas combien lui donner 😬)\n", espece);
+            printf("Espece inconnue : %s (je sais pas combien lui donner )\n", espece);
         }
 
         totalCroquettes += quantite;
@@ -71,7 +71,7 @@ void afficherNourriture() {
     fclose(fichier);
 
     // Affichage des résultats
-    printf("\nRésumé des croquettes à préparer chaque jour :\n");
+    printf("\nResume des croquettes a preparer chaque jour :\n");
 
     if (chien > 0)
         printf(" - Chiens    : %.2f kg\n", chien);

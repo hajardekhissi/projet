@@ -46,13 +46,13 @@ void ajouterAnimal() {
 
     // Récupérer l'année de naissance de l'animal
     do {
-        printf(JAUNE "Année de naissance (1900-2025) : " RESET);
+        printf(JAUNE "Annee de naissance (1900-2025) : " RESET);
         if (scanf("%d", &nouvelAnimal.annee_naissance) != 1) {
-            printf(ROUGE "Erreur : Veuillez entrer une année valide.\n" RESET);
+            printf(ROUGE "Erreur : Veuillez entrer une annee valide.\n" RESET);
             while (getchar() != '\n'); // Nettoyer le buffer
             nouvelAnimal.annee_naissance = 0; // Valeur par défaut ou erreur
         } else if (nouvelAnimal.annee_naissance < 1900 || nouvelAnimal.annee_naissance > 2025) {
-            printf(ROUGE "Erreur : L'année doit être entre 1900 et 2025.\n" RESET);
+            printf(ROUGE "Erreur : L'annee doit être entre 1900 et 2025.\n" RESET);
         } else {
             break; // Sortir de la boucle si l'année est valide
         }
@@ -68,7 +68,7 @@ void ajouterAnimal() {
             while (getchar() != '\n');
             nouvelAnimal.poids = 0.0; // Valeur par défaut ou erreur
         } else if (nouvelAnimal.poids <= 0) {
-            printf(ROUGE "Erreur : Le poids doit être supérieur à 0.\n" RESET);
+            printf(ROUGE "Erreur : Le poids doit être superieur à 0.\n" RESET);
         } else {
             break; // Sortir de la boucle si le poids est valide
         }
@@ -96,5 +96,5 @@ void ajouterAnimal() {
 
     fclose(fichier);
 
-    printf(VERT "\n✅ Animal ajouté avec succès !\n" RESET);
+    printf(VERT "\n✅ Animal ajoute avec succes !\n" RESET);
 }

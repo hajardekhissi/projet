@@ -62,12 +62,12 @@ Espece choisirEspece() {
     int choix_utilisateur;
     // Affichage du menu de choix d'espèce
     while (1) {
-        printf("Choisissez une espèce :\n");
+        printf("Choisissez une espece :\n");
         printf("1. Chien\n");
         printf("2. Chat\n");
         printf("3. Hamster\n");
         printf("4. Autruche\n");
-        printf("Votre choix : ");
+
 
         // Lire le choix de l'utilisateur
         if (scanf("%d", &choix_utilisateur) != 1) {

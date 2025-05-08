@@ -22,7 +22,6 @@ int main() {
     int choix;
     do {
         afficherMenu();         // Affiche le menu complet
-        printf("Votre choix : "); // Invitation à l'utilisateur pour une meilleure expérience
         scanf("%d", &choix);
         while (getchar() != '\n'); // Vider le buffer clavier
 
