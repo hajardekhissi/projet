@@ -1,18 +1,17 @@
 #include <stdio.h>
-#include <time.h> // Pour srand() et time()
+#include <time.h>     // Pour srand() et time()
 #include <stdlib.h>
+
 #include "ajouter.h"
 #include "affichage.h"
 #include "rechercher.h"
 #include "nettoyeur.h"
 #include "adopter.h"
-#include "nourriture.h" // ➕ pour afficherNourriture()
+#include "nourriture.h"      // ➕ pour afficherNourriture()
 #include "inventaire.h"
-#include "identifiant_ani.h" 
-#include "choisirespece.h" // ➕ pour choisirEspece()
-#include "animal.h" // ➕ pour Animal
-
-
+#include "identifiant_ani.h"
+#include "choisirespece.h"   // ➕ pour choisirEspece()
+#include "animal.h"          // ➕ pour Animal
 
 int main() {
     // Nettoyage automatique au démarrage
@@ -51,4 +50,5 @@ int main() {
     } while (choix != 6); // Boucle tant que l’utilisateur n’a pas choisi 6 (quitter)
 
     return 0;
-}
+} // Fin de la fonction main
+
