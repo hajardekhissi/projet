@@ -7,18 +7,17 @@
 #include "rechercher.h"
 #include "nettoyeur.h"
 #include "adopter.h"
-#include "nourriture.h"      // ➕ pour afficherNourriture()
+#include "nourriture.h"     
 #include "inventaire.h"
 #include "identifiant_ani.h"
-#include "choisirespece.h"   // ➕ pour choisirEspece()
-#include "animal.h"          // ➕ pour Animal
-
+#include "choisirespece.h"  
+#include "animal.h"          
 int main() {
     // Nettoyage automatique au démarrage
-    srand(time(NULL)); // Initialisation du générateur de nombres aléatoires
-    nettoyerFichierAnimaux();
-
-    int choix;
+    //srand(time(NULL)); // Initialisation du générateur de nombres aléatoires
+   // nettoyerFichierAnimaux();
+    printf("Bioikij\n");
+    /*int choix;
     do {
         afficherMenu();         // Affiche le menu complet
         scanf("%d", &choix);
@@ -35,7 +34,7 @@ int main() {
                 adopterAnimal();
                 break;
             case 4:
-                afficherNourriture(); // ➕ calcul croquettes
+                afficherNourriture(); 
                 break;
             case 5:
                 afficherInventaire();
@@ -50,5 +49,5 @@ int main() {
     } while (choix != 6); // Boucle tant que l’utilisateur n’a pas choisi 6 (quitter)
 
     return 0;
-} // Fin de la fonction main
+} // Fin de la fonction main*/
 

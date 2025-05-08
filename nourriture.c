@@ -82,5 +82,5 @@ void afficherNourriture() {
     if (autruche > 0)
         printf(" - Autruches : %.2f kg\n", autruche);
 
-    printf("\nTotal à prévoir : %.2f kg de croquettes ! 🍽️\n", totalCroquettes);
+    printf("\nTotal à prévoir : %.2f kg de croquettes !\n", totalCroquettes);
 }
