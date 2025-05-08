@@ -2,7 +2,7 @@
 #include <locale.h>
 
     void afficherMenu() {
-    printf("caca\n");
+    printf("\n");
     printf("Bienvenue au Refuge ChenYl-Tech\n");
     printf("-------------------------------------------------------------\n");
     printf("1. Ajouter un animal\n");

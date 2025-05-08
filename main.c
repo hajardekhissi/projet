@@ -14,10 +14,10 @@
 #include "animal.h"          
 int main() {
     // Nettoyage automatique au démarrage
-    //srand(time(NULL)); // Initialisation du générateur de nombres aléatoires
-   // nettoyerFichierAnimaux();
-    printf("Bioikij\n");
-    /*int choix;
+    srand(time(NULL)); // Initialisation du générateur de nombres aléatoires
+   nettoyerFichierAnimaux();
+
+    int choix;
     do {
         afficherMenu();         // Affiche le menu complet
         scanf("%d", &choix);
