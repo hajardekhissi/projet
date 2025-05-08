@@ -1,6 +1,6 @@
 #include "animal.h"
 #include <stdio.h>
-int comparer(char *a, char *b) {
+int comparer(const char *a,const char *b) {
     int i = 0;
     
     // Comparer les chaînes caractère par caractère
