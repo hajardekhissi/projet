@@ -3,12 +3,11 @@
 #include "animal.h"
 
 void adopterAnimal() {
-    char espece[20]; // pour lire l'espèce sous forme de texte (ex : "CHIEN")
-
+    
     printf("Nous allons tout de suite demmarer l'adoption\n");
 
     // Ouvrir le fichier des animaux en mode lecture
-    FILE *fichier_des_animaux = fopen("animaux.txt", "r");
+    FILE *fichier_des_animaux = fopen("animaux/animaux.txt", "r");
     if (fichier_des_animaux == NULL) {
         printf("Erreur : Impossible d'ouvrir le fichier des animaux.\n");
         return;
@@ -17,10 +16,14 @@ void adopterAnimal() {
     // Demander à l'utilisateur l'ID de l'animal à adopter
     int id_cherche;
     printf("Entrez l'ID de l'animal à adopter : ");
-    scanf("%d", &id_cherche);
+    if (scanf("%d", &id_cherche)!=1){
+        printf("Veuillez entrer un nombre entier valide\n");
+        fclose(fichier_des_animaux);
+        return;
+    }
 
     // Créer un fichier temporaire pour stocker les animaux restants
-    FILE *fichier_temp = fopen("animaux_temp.txt", "w");
+    FILE *fichier_temp = fopen("animaux/animaux_temp.txt", "w");
     if (fichier_temp == NULL) {
         printf("Erreur : Impossible de créer le fichier temporaire.\n");
         fclose(fichier_des_animaux);
