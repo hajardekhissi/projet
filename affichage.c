@@ -9,11 +9,11 @@
 
 
 void afficherMenu() {
-    printf(VIOLET "╔═════════════════════════════════════════════╗\n" RESET);
-    printf(VIOLET "║" BLEU "          /)/) Bienvenue au Refuge ChenYl-Tech (\\(\\          " VIOLET "║\n" RESET);
-    printf(VIOLET "║" BLEU "         ( . .)                               ( . .)         " VIOLET "║\n" RESET);
-    printf(VIOLET "║" BLEU "        C(\")(\")                               (\")(\")C        " VIOLET "║\n" RESET);
-    printf(VIOLET "╚═════════════════════════════════════════════╝\n" RESET);
+    printf(VIOLET "======================================================\n" RESET);
+    printf(VIOLET "==" BLEU "                Bienvenue au Refuge ChenYl-Tech (\\(\\          " VIOLET     "===\n" RESET);
+    printf(VIOLET "==" BLEU "                                                                                         " VIOLET       "===\n" RESET);
+    printf(VIOLET "==" BLEU "                                                                                       " VIOLET         "===\n" RESET);
+    printf(VIOLET "=======================================================\n" RESET);
 
     printf(BLEU "  1. Ajouter un animal\n" RESET);
     printf(BLEU "  2. Rechercher des animaux\n" RESET);

@@ -96,5 +96,5 @@ void ajouterAnimal() {
 
     fclose(fichier);
 
-    printf(VERT "\n✅ Animal ajoute avec succes !\n" RESET);
+    printf(VERT "\n Animal ajoute avec succes !\n" RESET);
 }
