@@ -1,6 +1,7 @@
+
+#include "animal.h"
 #include <stdio.h>
 #include <time.h>
-#include "animal.h"
 #include "identifiant_ani.h"
 #include "choisirespece.h"
 #include "nourriture.h"
@@ -8,7 +9,8 @@
 #include "adopter.h"
 #include "inventaire.h"
 #include "rechercher.h"
-
+#include "nettoyeur.h"
+#include "ajouter.h"
 
 void afficherNourriture() {
     FILE *fichier = fopen("animaux.txt", "r");

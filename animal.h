@@ -36,5 +36,10 @@ const char* especeVersChaine(Espece e);
 
 //Ici on a une fonction qui va nous permettre d'adopter un animal
 void adopterAnimal(); // Déclaration de la fonction
-
+int comparer(const char* a, const char* b); // Déclaration de la fonction comparer
+void afficherInventaire(); // Déclaration de la fonction afficherInventaire
+// void afficherNourriture(); // Déclaration de la fonction afficherNourriture
+void rechercherAnimaux(); // Déclaration de la fonction rechercherAnimaux
+// void nettoyerFichierAnimaux(); // Déclaration de la fonction nettoyerFichierAnimaux
+void nettoyerFichierAnimaux(); // Déclaration de la fonction nettoyerFichierAnimaux
 #endif

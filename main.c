@@ -8,7 +8,9 @@
 #include "adopter.h"
 #include "nourriture.h" // ➕ pour afficherNourriture()
 #include "inventaire.h"
-#include "identifiant_ani.h" // ➕ pour genererID()
+#include "identifiant_ani.h" 
+#include "choisirespece.h" // ➕ pour choisirEspece()
+#include "animal.h" // ➕ pour Animal
 
 
 

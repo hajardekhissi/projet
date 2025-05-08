@@ -3,6 +3,8 @@
 #include "animal.h"
 
 void adopterAnimal() {
+    char espece[20]; // pour lire l'espèce sous forme de texte (ex : "CHIEN")
+
     printf("Nous allons tout de suite demmarer l'adoption\n");
 
     // Ouvrir le fichier des animaux en mode lecture
@@ -29,17 +31,23 @@ void adopterAnimal() {
     Animal animal;
 
     // Parcours du fichier des animaux
+    char especeStr[20]; // Variable temporaire pour lire l'espèce sous forme de texte
+
     while (fscanf(fichier_des_animaux, "%d;%s;%s;%d;%f;%s", 
-                  &animal.id, animal.nom, animal.espece, &animal.annee_naissance, &animal.poids, animal.commentaire) == 6) {
+                  &animal.id, animal.nom, especeStr, &animal.annee_naissance, &animal.poids, animal.commentaire) == 6) {
+        
+        animal.espece = chaineVersEspece(especeStr); // Convertir la chaîne en enum Espece
+    
         if (animal.id == id_cherche) {
-            animal_trouve = 1;  // L'animal a été trouvé
+            animal_trouve = 1;  // L'animal a été trouvé, donc on ne l'écrit pas
         } else {
-            // Écrire les animaux non adoptés dans le fichier temporairea
-            
-            fprintf(fichier_temp, "%d;%s;%s;%d;%.2f;%s\n", animal.id, animal.nom, animal.espece, 
+            // Écrire les animaux non adoptés dans le fichier temporaire
+            fprintf(fichier_temp, "%d;%s;%s;%d;%.2f;%s\n",
+                    animal.id, animal.nom, especeVersChaine(animal.espece),
                     animal.annee_naissance, animal.poids, animal.commentaire);
         }
     }
+    
 
     // Fermeture des fichiers
     fclose(fichier_des_animaux);
