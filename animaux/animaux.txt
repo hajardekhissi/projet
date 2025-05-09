@@ -1,4 +1,0 @@
-3246;augustin;Chien;2006;5.00;$
-9700;hjr;Chien;2006;5.00;oioh
-9821;hgfdsq;Chat;2006;5.00;koij
-1809;kh;Chien;2006;25.00;jiuy

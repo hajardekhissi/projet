@@ -9,7 +9,6 @@
 #include "adopter.h"
 #include "inventaire.h"
 #include "rechercher.h"
-#include "nettoyeur.h"
 #include "ajouter.h"
 
 void afficherNourriture() {

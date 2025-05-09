@@ -5,7 +5,7 @@
 #include "ajouter.h"
 #include "affichage.h"
 #include "rechercher.h"
-#include "nettoyeur.h"
+
 #include "adopter.h"
 #include "nourriture.h"     
 #include "inventaire.h"
