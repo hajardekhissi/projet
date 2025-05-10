@@ -1,97 +1,83 @@
 #include <stdio.h>
 #include <stdlib.h>
 // Pas de string.h
-#include "animal.h" // Inclut chaineVersEspece, comparer, especeVersChaine
-#include "rechercher.h" // Pour utiliser rechercherAnimaux
+#include "animal.h"
+#include "rechercher.h"
 #include "adopter.h"
 
 void adopterAnimal() {
     int id_cherche;
-    Animal animal_trouve_data; // Structure pour stocker les données de l'animal trouvé par rechercherAnimaux
-    char especeStr[20]; // Buffer pour lire la chaîne de l'espèce pendant la copie
+    Animal animal_trouve_data;
+    char especeStr[20];
+    char ligne[256]; // Pour lire les lignes
 
     printf("Nous allons tout de suite démarrer l'adoption\n");
 
-    // Demander à l'utilisateur l'ID de l'animal à adopter
+    // Demander l’ID de l’animal
     printf("Entrez l'ID de l'animal à adopter : ");
     if (scanf("%d", &id_cherche) != 1) {
         printf("Veuillez entrer un nombre entier valide.\n");
-        while (getchar() != '\n'); // Vider le buffer
+        while (getchar() != '\n'); // vider le buffer
         return;
     }
-    while (getchar() != '\n'); // Vider le reste de la ligne après un scanf réussi
+    while (getchar() != '\n'); // vider le buffer
 
-    // --- Étape 1 : Rechercher l'animal à adopter ---
-    // rechercherAnimaux gère l'ouverture/fermeture et le fseek.
-    // Elle nous dit si l'animal existe et met ses données dans animal_trouve_data.
+    // Étape 1 : Rechercher l'animal
     FILE *fichier_pour_recherche = fopen("animaux/animaux.txt", "r");
-     if (fichier_pour_recherche == NULL) {
-         printf("Erreur : Impossible d'ouvrir le fichier des animaux pour la recherche d'adoption.\n");
-         return;
-     }
-    int animal_trouve_flag = rechercherAnimaux(fichier_pour_recherche, id_cherche, &animal_trouve_data);
-     // Note : rechercherAnimaux ferme le fichier passé en argument.
+    if (fichier_pour_recherche == NULL) {
+        printf("Erreur : Impossible d'ouvrir le fichier des animaux.\n");
+        return;
+    }
 
+    int trouve = rechercherAnimaux(fichier_pour_recherche, id_cherche, &animal_trouve_data);
+    fclose(fichier_pour_recherche);
 
-    if (animal_trouve_flag == 0) {
+    if (!trouve) {
         printf("Désolé, aucun animal trouvé avec l'ID %d.\n", id_cherche);
         return;
     }
-     // Si on arrive ici, l'animal a été trouvé.
 
-    // --- Étape 2 : Créer un nouveau fichier sans l'animal adopté ---
-    // Ouvrir le fichier original pour lecture et créer un fichier temporaire pour écriture
-    FILE *fichier_animaux_lecture = fopen("animaux/animaux.txt", "r"); // Ouvrir à nouveau pour relire
-    FILE *fichier_animaux_temporaire = fopen("animaux/animaux_temp.txt", "w");
+    // Étape 2 : Ouvrir le fichier en lecture et un fichier temporaire en écriture
+    FILE *fichier_original = fopen("animaux/animaux.txt", "r");
+    FILE *fichier_temp = fopen("animaux/animaux_temp.txt", "w");
 
-    if (fichier_animaux_lecture == NULL || fichier_animaux_temporaire == NULL) {
-        printf("Erreur lors de la réouverture des fichiers pour modification.\n");
-        if (fichier_animaux_temporaire != NULL) fclose(fichier_animaux_temporaire);
-        if (fichier_animaux_lecture != NULL) fclose(fichier_animaux_lecture);
+    if (fichier_original == NULL || fichier_temp == NULL) {
+        printf("Erreur lors de la réouverture des fichiers.\n");
+        if (fichier_original) fclose(fichier_original);
+        if (fichier_temp) fclose(fichier_temp);
         return;
     }
 
-    // Remettre le pointeur au début du fichier original pour la copie
-    fseek(fichier_animaux_lecture, 0, SEEK_SET);
+    // Lire chaque ligne et recopier sauf celle à supprimer
+    while (fgets(ligne, sizeof(ligne), fichier_original)) {
+        Animal courant;
+        if (sscanf(ligne, "%d;%19[^;];%19[^;];%d;%f;%99[^\n]",
+                   &courant.id, courant.nom, especeStr,
+                   &courant.annee_naissance, &courant.poids, courant.commentaire) == 6) {
 
-    // Lire toutes les lignes du fichier original et réécrire celles qui ne correspondent PAS à l'animal adopté
-    Animal animal_courant; // Structure pour lire les données de chaque ligne
-    // Note : Utilisation de fscanf ici suppose toujours que les champs nom/commentaire n'ont pas d'espaces.
-    while (fscanf(fichier_animaux_lecture, "%d;%s;%s;%d;%f;%s",
-                  &animal_courant.id, animal_courant.nom, especeStr,
-                  &animal_courant.annee_naissance, &animal_courant.poids, animal_courant.commentaire) == 6) {
+            courant.espece = chaineVersEspece(especeStr);
 
-        // Convertir la chaîne d'espèce lue en type Espece
-        animal_courant.espece = chaineVersEspece(especeStr);
-
-        // Si l'ID de l'animal lu n'est PAS l'ID de l'animal à adopter, on écrit cette ligne dans le fichier temporaire
-        if (animal_courant.id != id_cherche) {
-            fprintf(fichier_animaux_temporaire, "%d;%s;%s;%d;%.2f;%s\n",
-                    animal_courant.id, animal_courant.nom, especeVersChaine(animal_courant.espece), // Utiliser especeVersChaine pour l'écriture
-                    animal_courant.annee_naissance, animal_courant.poids, animal_courant.commentaire);
+            if (courant.id != id_cherche) {
+                fprintf(fichier_temp, "%d;%s;%s;%d;%.2f;%s\n",
+                        courant.id, courant.nom, especeVersChaine(courant.espece),
+                        courant.annee_naissance, courant.poids, courant.commentaire);
+            }
         }
     }
 
-    // --- Étape 3 : Remplacer le fichier original par le fichier temporaire ---
-    fclose(fichier_animaux_lecture);
-    fclose(fichier_animaux_temporaire);
+    fclose(fichier_original);
+    fclose(fichier_temp);
 
-    // Supprimer le fichier original
+    // Étape 3 : Remplacer l'ancien fichier par le temporaire
     if (remove("animaux/animaux.txt") != 0) {
-        printf("Erreur lors de la suppression de l'ancien fichier d'animaux.\n");
-         if (rename("animaux/animaux_temp.txt", "animaux/animaux.txt") != 0) {
-             printf("ERREUR CRITIQUE : Impossible de renommer le fichier temporaire. Le fichier original n'existe plus, et le fichier animaux_temp.txt doit être renommé manuellement en animaux.txt\n");
-         }
-         return;
-    }
-
-    // Renommer le fichier temporaire pour qu'il devienne le nouveau fichier original
-    if (rename("animaux/animaux_temp.txt", "animaux/animaux.txt") != 0) {
-        printf("Erreur lors du renommage du fichier temporaire.\n");
-        printf("Le fichier animaux_temp.txt contient les données mises à jour. Veuillez le renommer manuellement en animaux.txt\n");
+        printf("Erreur : impossible de supprimer l'ancien fichier.\n");
         return;
     }
 
-    // Si tout s'est bien passé
+    if (rename("animaux/animaux_temp.txt", "animaux/animaux.txt") != 0) {
+        printf("Erreur : impossible de renommer le fichier temporaire.\n");
+        return;
+    }
+
     printf("L'animal avec l'ID %d a été adopté avec succès !\n", id_cherche);
 }

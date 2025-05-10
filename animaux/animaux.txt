@@ -1,2 +1,1 @@
 6664;ha;Chien;2006;25.00;popo
-6902;hajar;Chat;2006;25.00;gentille
