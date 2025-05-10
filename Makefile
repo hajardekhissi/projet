@@ -15,7 +15,7 @@ identifiant_ani.o: identifiant_ani.c identifiant_ani.h
 	gcc -c identifiant_ani.c -o identifiant_ani.o
 affichage.o: affichage.c affichage.h
 	gcc -c affichage.c -o affichage.o
-ajouter.o: ajouter.c identifiant_ani.h affichage.h
+ajouter.o: ajouter.c identifiant_ani.h affichage.h animal.h
 	gcc -c ajouter.c -o ajouter.o
 main.o: main.c ajouter.h affichage.h rechercher.h adopter.h nourriture.h inventaire.h identifiant_ani.h choisirespece.h animal.h
 	gcc -c main.c -o main.o

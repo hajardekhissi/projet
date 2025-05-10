@@ -51,7 +51,7 @@ void adopterAnimal() {
     // Lire chaque ligne et recopier sauf celle à supprimer
     while (fgets(ligne, sizeof(ligne), fichier_original)) {
         Animal courant;
-        if (sscanf(ligne, "%d;%19[^;];%19[^;];%d;%f;%99[^\n]",
+        if (sscanf(ligne, "%d;%s;%s;%d;%.2f;%s[^\n]",
                    &courant.id, courant.nom, especeStr,
                    &courant.annee_naissance, &courant.poids, courant.commentaire) == 6) {
 

@@ -13,13 +13,32 @@
 #define TAILLE_NOM 50
 #define TAILLE_COMM 100
 
+int compterAnimaux() {
+    FILE *fichier = fopen("animaux/animaux.txt", "r");
+    if (!fichier) return 0;
+
+    int count = 0;
+    char ligne[512];
+    while (fgets(ligne, sizeof(ligne), fichier)) {
+        count++;
+    }
+
+    fclose(fichier);
+    return count;
+}
+
 void ajouterAnimal() {
-    // Assurer que le dossier 'animaux' existe
     #ifdef _WIN32
         system("mkdir animaux");
     #else
-            system("mkdir -p animaux");
+        system("mkdir -p animaux");
     #endif
+
+    int nb_animaux = compterAnimaux();
+    if (nb_animaux >= MAX_ANIMAUX) {
+        printf(ROUGE "\nLe refuge est plein ! Impossible d'ajouter un nouvel animal (%d max).\n" RESET, MAX_ANIMAUX);
+        return;
+    }
 
     FILE *fichier = fopen("animaux/animaux.txt", "a");
     if (fichier == NULL) {
@@ -32,51 +51,47 @@ void ajouterAnimal() {
 
     printf(BLEU_CLAIR "\n*** Ajouter un nouvel animal ***\n" RESET);
 
-    // Récupérer le nom de l'animal
+    // Nom
     printf(JAUNE "Nom de l'animal : " RESET);
     if (fgets(nouvelAnimal.nom, TAILLE_NOM, stdin) == NULL) {
         printf(ROUGE "Erreur lors de la lecture du nom.\n" RESET);
         fclose(fichier);
         return;
     }
-    nouvelAnimal.nom[strcspn(nouvelAnimal.nom, "\n")] = '\0'; // Supprimer le \n
+    nouvelAnimal.nom[strcspn(nouvelAnimal.nom, "\n")] = '\0';
 
-    // Récupérer l'espèce de l'animal
+    // Espèce
     nouvelAnimal.espece = choisirEspece();
 
-    // Récupérer l'année de naissance de l'animal
+    // Année de naissance
     do {
         printf(JAUNE "Annee de naissance (1900-2025) : " RESET);
         if (scanf("%d", &nouvelAnimal.annee_naissance) != 1) {
             printf(ROUGE "Erreur : Veuillez entrer une annee valide.\n" RESET);
-            while (getchar() != '\n'); // Nettoyer le buffer
-            nouvelAnimal.annee_naissance = 0; // Valeur par défaut ou erreur
+            while (getchar() != '\n');
         } else if (nouvelAnimal.annee_naissance < 1900 || nouvelAnimal.annee_naissance > 2025) {
             printf(ROUGE "Erreur : L'annee doit être entre 1900 et 2025.\n" RESET);
         } else {
-            break; // Sortir de la boucle si l'année est valide
+            break;
         }
     } while (1);
+    while (getchar() != '\n');
 
-    while (getchar() != '\n'); // Nettoyer le buffer après scanf
-
-    // Récupérer le poids de l'animal
+    // Poids
     do {
         printf(JAUNE "Poids (kg, > 0) : " RESET);
         if (scanf("%f", &nouvelAnimal.poids) != 1) {
             printf(ROUGE "Erreur : Veuillez entrer un poids valide.\n" RESET);
             while (getchar() != '\n');
-            nouvelAnimal.poids = 0.0; // Valeur par défaut ou erreur
         } else if (nouvelAnimal.poids <= 0) {
-            printf(ROUGE "Erreur : Le poids doit être superieur à 0.\n" RESET);
+            printf(ROUGE "Erreur : Le poids doit etre superieur à 0.\n" RESET);
         } else {
-            break; // Sortir de la boucle si le poids est valide
+            break;
         }
     } while (1);
+    while (getchar() != '\n');
 
-    while (getchar() != '\n'); // Nettoyer le buffer après scanf
-
-    // Récupérer le commentaire sur l'animal
+    // Commentaire
     printf(JAUNE "Commentaire : " RESET);
     if (fgets(nouvelAnimal.commentaire, TAILLE_COMM, stdin) == NULL) {
         printf(ROUGE "Erreur lors de la lecture du commentaire.\n" RESET);
@@ -85,7 +100,7 @@ void ajouterAnimal() {
     }
     nouvelAnimal.commentaire[strcspn(nouvelAnimal.commentaire, "\n")] = '\0';
 
-    // Écrire les informations de l'animal dans le fichier
+    // Sauvegarde
     fprintf(fichier, "%d;%s;%s;%d;%.2f;%s\n",
             nouvelAnimal.id,
             nouvelAnimal.nom,
@@ -93,8 +108,7 @@ void ajouterAnimal() {
             nouvelAnimal.annee_naissance,
             nouvelAnimal.poids,
             nouvelAnimal.commentaire);
-
     fclose(fichier);
 
-    printf(VERT "\n Animal ajoute avec succes !\n" RESET);
+    printf(VERT "\nAnimal numero %d ajoute avec succes !\n" RESET, nouvelAnimal.id);
 }
