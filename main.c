@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>     // Pour srand() et time()
 #include <stdlib.h>
+#include <locale.h>
 
 #include "ajouter.h"
 #include "affichage.h"
@@ -15,7 +16,7 @@
 int main() {
     // Nettoyage automatique au démarrage
     srand(time(NULL)); // Initialisation du générateur de nombres aléatoires
-
+    setlocale(LC_NUMERIC, "C"); // Pour afficher les nombres avec des virgules au lieu de points
     int choix;
     do {
         afficherMenu();         // Affiche le menu complet
@@ -38,6 +39,7 @@ int main() {
                 int id_cherche;
                 printf("Entrez l'ID de l'animal à rechercher : ");
                 scanf("%d", &id_cherche);
+                while (getchar() != '\n'); // Vider le buffer clavier
 
                 Animal animal;
                 int animal_trouve = rechercherAnimaux(fichier_des_animaux, id_cherche, &animal);

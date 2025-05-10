@@ -1,66 +1,78 @@
 #include "animal.h"
 #include <stdio.h>
-int comparer(const char *a,const char *b) {
+// Pas de string.h ni ctype.h
+
+// Implémentation manuelle très simple de la conversion en minuscule (pour les lettres ASCII)
+char convertir_en_minuscule(char c) {
+    if (c >= 'A' && c <= 'Z') {
+        return c + ('a' - 'A'); // Convertit majuscule en minuscule
+    }
+    return c; // Laisse les autres caractères inchangés
+}
+
+// Implémentation manuelle d'une comparaison de chaînes insensible à la casse
+int comparer(const char *a, const char *b) {
     int i = 0;
-    
-    // Comparer les chaînes caractère par caractère
     while (a[i] != '\0' && b[i] != '\0') {
-        // Comparer sans tenir compte de la casse (utiliser | 32 pour ignorer la casse)
-        if ((a[i] | 32) != (b[i] | 32)) {
-            return 0;  // Les chaînes sont différentes
+        // Comparer les caractères après les avoir mis en minuscule manuellement
+        if (convertir_en_minuscule(a[i]) != convertir_en_minuscule(b[i])) {
+            return 0; // Les chaînes sont différentes
         }
         i++;
     }
-
-    // Vérifier si les deux chaînes sont terminées en même temps
-    if (a[i] == '\0' && b[i] == '\0') {
-        return 1;  // Les chaînes sont égales
-    }
-
-    return 0;  // Une chaîne est plus longue que l'autre
+    // Les chaînes sont égales si les deux se terminent au même point
+    return a[i] == '\0' && b[i] == '\0'; // Retourne 1 si égales, 0 sinon
 }
 
-//Ca c'est la fonction  qui convertit une chaine de caractere en espece c'est celle qu'on a defini dans animal.h
-Espece chaineVersEspece(const char* str){
+// Implémentation manuelle de la copie de chaîne avec taille limite
+void copierChaine(char* dest, const char* src, int taille_max) {
+    int i = 0;
+    while (i < taille_max - 1 && src[i] != '\0') {
+        dest[i] = src[i];
+        i++;
+    }
+    dest[i] = '\0'; // Assurer la terminaison de la chaîne
+}
 
-    if (comparer(str, "Chien")==0){
+
+// Fonction pour convertir une chaîne de caractères en type Espece
+Espece chaineVersEspece(const char* str){
+    // Utiliser la fonction comparer manuelle et vérifier si elle retourne 1 (égal)
+    if (comparer(str, "Chien") == 1){ // <-- CHANGEMENT ICI : == 1
      return CHIEN;
     }
-    if (comparer(str, "Chat")==0){
+    if (comparer(str, "Chat") == 1){ // <-- CHANGEMENT ICI : == 1
         return CHAT;
     }
-    if (comparer(str, "Hamster")==0){
+    if (comparer(str, "Hamster") == 1){ // <-- CHANGEMENT ICI : == 1
         return HAMSTER;
     }
-    if (comparer(str, "Autruche")==0){
-
-    return AUTRUCHE;
+    if (comparer(str, "Autruche") == 1){ // <-- CHANGEMENT ICI : == 1
+        return AUTRUCHE;
     }
-    return -1;
+    return -1; // Espèce non reconnue
 }
-//Ca c'est la fonction qui va nous permettre de convertir une espece en chaine de caractere c'est celle qu'on a defini dans animal.h
+// Reste de animal.c (especeVersChaine, choisirEspece) ... elles étaient déjà bien
 const char* especeVersChaine(Espece animal) {
     if (animal == CHIEN) {
         return "Chien";
-    } 
+    }
     else if (animal == CHAT) {
         return "Chat";
-    } 
+    }
     else if (animal == HAMSTER) {
         return "Hamster";
-    } 
+    }
     else if (animal == AUTRUCHE) {
         return "Autruche";
-    } 
+    }
     else {
-        return "L'animal entrer ne correspond a aucun des animaux existant";
+        return "Espece inconnue";
     }
 }
-//Ca c'est  fonction qui va nous permettre de chosiir les especes d'animaux c'est celle qu'on a defini dans animal.h
-// Fonction permettant à l'utilisateur de choisir une espèce parmi 4 options
+
 Espece choisirEspece() {
     int choix_utilisateur;
-    // Affichage du menu de choix d'espèce
     while (1) {
         printf("Choisissez une espece :\n");
         printf("1. Chien\n");
@@ -68,30 +80,22 @@ Espece choisirEspece() {
         printf("3. Hamster\n");
         printf("4. Autruche\n");
 
-
-        // Lire le choix de l'utilisateur
         if (scanf("%d", &choix_utilisateur) != 1) {
-            // Si la saisie n'est pas un nombre, on vide le buffer et on recommence
             while (getchar() != '\n');
-            printf("Veuillez entrez un nombre entre 1 et 4!!\n"); 
+            printf("Veuillez entrez un nombre entre 1 et 4!!\n");
         } else {
-            // Si le choix est valide, on retourne l'espèce correspondante
-            if (choix_utilisateur == 1) {
-                return CHIEN;
-            }
-            else if (choix_utilisateur == 2) {
-                return CHAT;
-            }
-            else if (choix_utilisateur == 3) {
-                return HAMSTER;
-            }
-            else if (choix_utilisateur == 4) {
-                return AUTRUCHE;
+            if (choix_utilisateur >= 1 && choix_utilisateur <= 4) {
+                while (getchar() != '\n');
+                switch (choix_utilisateur) {
+                    case 1: return CHIEN;
+                    case 2: return CHAT;
+                    case 3: return HAMSTER;
+                    case 4: return AUTRUCHE;
+                }
             }
             else {
-                // Si le choix est en dehors de 1 à 4, on affiche une erreur
                 printf("Veuillez saisir une option existante.\n");
-                while (getchar() != '\n'); // Vider le buffer
+                while (getchar() != '\n');
             }
         }
     }
