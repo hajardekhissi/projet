@@ -1,5 +1,6 @@
 #ifndef ANIMAL_H
 #define ANIMAL_H
+#include <stdio.h>
 
 // Définition des tailles maximales pour les tableaux de caractères
 
@@ -39,7 +40,8 @@ void adopterAnimal(); // Déclaration de la fonction
 int comparer(const char* a, const char* b); // Déclaration de la fonction comparer
 void afficherInventaire(); // Déclaration de la fonction afficherInventaire
 // void afficherNourriture(); // Déclaration de la fonction afficherNourriture
-void rechercherAnimaux(); // Déclaration de la fonction rechercherAnimaux
+int rechercherAnimaux(FILE *fichier, int idRecherche, Animal *resultat);
+ // Déclaration de la fonction rechercherAnimaux
 // void nettoyerFichierAnimaux(); // Déclaration de la fonction nettoyerFichierAnimaux
 void nettoyerFichierAnimaux(); // Déclaration de la fonction nettoyerFichierAnimaux
 #endif

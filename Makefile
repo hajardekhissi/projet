@@ -7,13 +7,13 @@ inventaire.o: inventaire.c inventaire.h
 	gcc -c inventaire.c -o inventaire.o
 nourriture.o: nourriture.c animal.h identifiant_ani.h choisirespece.h nourriture.h affichage.h adopter.h inventaire.h rechercher.h ajouter.h
 	gcc -c nourriture.c -o nourriture.o
-rechercher.o: rechercher.c rechercher.h
+rechercher.o: rechercher.c rechercher.h animal.h
 	gcc -c rechercher.c -o rechercher.o
-adopter.o: adopter.c animal.h
+adopter.o: adopter.c animal.h rechercher.h adopter.h
 	gcc -c adopter.c -o adopter.o
 identifiant_ani.o: identifiant_ani.c identifiant_ani.h
 	gcc -c identifiant_ani.c -o identifiant_ani.o
-affichage.o: affichage.c
+affichage.o: affichage.c affichage.h
 	gcc -c affichage.c -o affichage.o
 ajouter.o: ajouter.c identifiant_ani.h affichage.h
 	gcc -c ajouter.c -o ajouter.o

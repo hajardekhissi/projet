@@ -1,2 +1,4 @@
 8164;hajart;Chien;2006;25.00;aya
 8357;animal;Chien;2006;25.00;gentil
+9313;hajar;Chat;2006;25.00;gentille
+3620;b;Chien;2006;56.00;o
