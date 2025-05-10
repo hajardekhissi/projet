@@ -2,3 +2,4 @@
 4868;khra;Chien;2006;25.00;kelek
 5145;hajar;Chien;2006;25.00;resd
 5293;mm—;Chien;2006;25.00;mlm
+6868;hajar;Chien;2006;25.00;blabla

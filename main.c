@@ -58,7 +58,7 @@ int main() {
                 break;
                 
             case 4:
-                afficherNourriture(); 
+                nourriture(); 
                 break;
 
             case 5:

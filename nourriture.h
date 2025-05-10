@@ -1,7 +1,7 @@
 #ifndef NOURRITURE_H
 #define NOURRITURE_H
 
-void afficherNourriture();
+void nourriture();
 
 #endif
 // Fin du fichier nourriture.h

@@ -5,7 +5,7 @@ choisirespece.o: choisirespece.c choisirespece.h
 	gcc -c choisirespece.c -o choisirespece.o
 inventaire.o: inventaire.c inventaire.h
 	gcc -c inventaire.c -o inventaire.o
-nourriture.o: nourriture.c animal.h identifiant_ani.h choisirespece.h nourriture.h affichage.h adopter.h inventaire.h rechercher.h ajouter.h
+nourriture.o: nourriture.c animal.h  rechercher.h nourriture.h
 	gcc -c nourriture.c -o nourriture.o
 rechercher.o: rechercher.c rechercher.h animal.h
 	gcc -c rechercher.c -o rechercher.o
