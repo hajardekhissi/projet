@@ -39,12 +39,14 @@ void ajouterAnimal() {
     int nb_animaux = compterAnimaux();
     if (nb_animaux >= MAX_ANIMAUX) {
         printf(ROUGE "\nLe refuge est plein ! Impossible d'ajouter un nouvel animal (%d max).\n" RESET, MAX_ANIMAUX);
+        return;
    
     }
 
     FILE *fichier = fopen("animaux/animaux.txt", "a");
     if (fichier == NULL) {
         printf(ROUGE "Erreur : Impossible d'ouvrir le fichier des animaux pour l'ajout.\n" RESET);
+        return;
  
     }
 
@@ -72,7 +74,7 @@ void ajouterAnimal() {
             printf(ROUGE "Erreur : Veuillez entrer une annee valide.\n" RESET);
             while (getchar() != '\n');
         } else if (nouvelAnimal.annee_naissance < 1900 || nouvelAnimal.annee_naissance > 2025) {
-            printf(ROUGE "Erreur : L'annee doit être entre 1900 et 2025.\n" RESET);
+            printf(ROUGE "Erreur : L'annee doit etre entre 1900 et 2025.\n" RESET);
         } else {
             break;
         }

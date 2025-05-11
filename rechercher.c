@@ -135,7 +135,7 @@ void rechercher_espece(FILE *fichier) {
             printf("ID: %d\n", animal.id);
             printf("Nom: %s\n", animal.nom);
             printf("Espece: %s\n", espece_chaine);
-            printf("Année de naissance: %d\n", animal.annee_naissance);
+            printf("Annee de naissance: %d\n", animal.annee_naissance);
         }
     }
 

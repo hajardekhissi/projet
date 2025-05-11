@@ -18,7 +18,7 @@ void adopterAnimal() {
     if (scanf("%d", &id_cherche) != 1) {
         printf("Veuillez entrer un nombre entier valide.\n");
         while (getchar() != '\n'); // vider le buffer
-        return;
+
     }
     while (getchar() != '\n'); // vider le buffer
 
@@ -27,6 +27,7 @@ void adopterAnimal() {
     if (fichier_pour_recherche == NULL) {
         printf("Erreur : Impossible d'ouvrir le fichier des animaux.\n");
         return;
+ 
     }
 
     int trouve = rechercher_id(fichier_pour_recherche, id_cherche, &animal_trouve);
@@ -35,6 +36,7 @@ void adopterAnimal() {
     if (trouve==0) {
         printf("Desole, aucun animal trouve avec l'ID %d.\n", id_cherche);
         return;
+ 
     }
 
     // Étape 2 : Ouvrir le fichier en lecture et un fichier temporaire en écriture
@@ -49,7 +51,7 @@ void adopterAnimal() {
         if (fichier_2 != NULL) {
             fclose(fichier_2);
         }
-        return;
+
     }
 
     // Lire chaque ligne et recopier sauf celle à supprimer
@@ -76,12 +78,13 @@ void adopterAnimal() {
     // Étape 3 : Remplacer l'ancien fichier par le temporaire
     if (remove("animaux/animaux.txt") != 0) {
         printf("Erreur : impossible de supprimer l'ancien fichier.\n");
-        return;
+        
+
     }
 
     if (rename("animaux/animaux_2.txt", "animaux/animaux.txt") != 0) {
         printf("Erreur : impossible de renommer le fichier temporaire.\n");
-        return;
+
     }
 
     printf("L'animal avec l'ID %d a ete adopte avec succes !\n", id_cherche);

@@ -42,6 +42,5 @@ void afficherInventaire(); // Déclaration de la fonction afficherInventaire
 // void afficherNourriture(); // Déclaration de la fonction afficherNourriture
 int rechercherAnimaux(FILE *fichier, int idRecherche, Animal *resultat);
  // Déclaration de la fonction rechercherAnimaux
-// void nettoyerFichierAnimaux(); // Déclaration de la fonction nettoyerFichierAnimaux
-void nettoyerFichierAnimaux(); // Déclaration de la fonction nettoyerFichierAnimaux
+
 #endif

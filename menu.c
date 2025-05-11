@@ -9,7 +9,7 @@ void afficherMenurRecherche(FILE *fichier) {
         printf("1. Ajouter un animal\n");
         printf("2. Rechercher un animal\n");
         printf("3. Adopter un animal\n");
-        printf("4. Gérer la nourriture\n");
+        printf("4. Gerer la nourriture\n");
         printf("5. Afficher l'inventaire\n");
         printf("6. Quitter\n");
         printf("Votre choix : ");
