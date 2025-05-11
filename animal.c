@@ -87,10 +87,14 @@ Espece choisirEspece() {
             if (choix_utilisateur >= 1 && choix_utilisateur <= 4) {
                 while (getchar() != '\n');
                 switch (choix_utilisateur) {
-                    case 1: return CHIEN;
-                    case 2: return CHAT;
-                    case 3: return HAMSTER;
-                    case 4: return AUTRUCHE;
+                    case 1: 
+                    return CHIEN;
+                    case 2: 
+                    return CHAT;
+                    case 3: 
+                    return HAMSTER;
+                    case 4: 
+                    return AUTRUCHE;
                 }
             }
             else {

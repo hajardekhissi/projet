@@ -29,10 +29,10 @@ void adopterAnimal() {
         return;
     }
 
-    int trouve = rechercherAnimaux(fichier_pour_recherche, id_cherche, &animal_trouve_data);
+    int trouve = rechercher_id(fichier_pour_recherche, id_cherche, &animal_trouve_data);
     fclose(fichier_pour_recherche);
 
-    if (!trouve) {
+    if (trouve==0) {
         printf("Désolé, aucun animal trouvé avec l'ID %d.\n", id_cherche);
         return;
     }
@@ -42,16 +42,20 @@ void adopterAnimal() {
     FILE *fichier_temp = fopen("animaux/animaux_temp.txt", "w");
 
     if (fichier_original == NULL || fichier_temp == NULL) {
-        printf("Erreur lors de la réouverture des fichiers.\n");
-        if (fichier_original) fclose(fichier_original);
-        if (fichier_temp) fclose(fichier_temp);
+        printf("Erreur lors de l'ouverture des fichiers.\n");
+        if (fichier_original != NULL) {
+            fclose(fichier_original);
+        }
+        if (fichier_temp != NULL) {
+            fclose(fichier_temp);
+        }
         return;
     }
 
     // Lire chaque ligne et recopier sauf celle à supprimer
     while (fgets(ligne, sizeof(ligne), fichier_original)) {
         Animal courant;
-        if (sscanf(ligne, "%d;%s;%s;%d;%.2f;%s[^\n]",
+        if (sscanf(ligne, "%d;%s;%s;%d;%.2f;%s[^\n]", 
                    &courant.id, courant.nom, especeStr,
                    &courant.annee_naissance, &courant.poids, courant.commentaire) == 6) {
 

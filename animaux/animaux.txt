@@ -3,3 +3,5 @@
 5145;hajar;Chien;2006;25.00;resd
 5293;mm—;Chien;2006;25.00;mlm
 6868;hajar;Chien;2006;25.00;blabla
+5244;KHRA;Hamster;1999;58.00;INAF
+2880;hajar;Chien;2006;25.00;gentille

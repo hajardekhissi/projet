@@ -1,19 +1,21 @@
 #include "animal.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "rechercher.h"
+#include "nourriture.h"
 
+// Fonction de recherche d'animal et de calcul de la nourriture
 void nourriture() {
     int id;
     Animal animal_trouve;
 
-    printf("Entrez l'ID de l'animal pour lequel vous voulez connaître la quantité de croquettes : ");
+    printf("Entrez l'ID de l'animal pour lequel vous voulez connaitre la quantite de croquettes : ");
     if (scanf("%d", &id) != 1) {
-        printf("Veuillez entrer un nombre entier valide.\n");
+        printf("Veuillez entrez un ID valide svp\n");
         while (getchar() != '\n'); // vider le buffer
         return;
     }
 
-    // Étape 1 : Rechercher l'animal
     FILE *fichier_pour_recherche = fopen("animaux/animaux.txt", "r");
     if (fichier_pour_recherche == NULL) {
         printf("Erreur : Impossible d'ouvrir le fichier des animaux.\n");
@@ -25,12 +27,15 @@ void nourriture() {
     fclose(fichier_pour_recherche);
 
     if (!trouve) {
-        printf("Aucun animal trouvé avec l'ID %d.\n", id);
+        printf("Desole nous ne trouvons pas d'animal avec cet ID  %d.\n", id);
+
         return;
     }
 
     // Étape 2 : Calcul de la quantité de croquettes
     double quantiteCroquettes = 0.0;
+
+
 
     switch (animal_trouve.espece) {
         case HAMSTER:
@@ -39,7 +44,13 @@ void nourriture() {
         case AUTRUCHE:
             quantiteCroquettes = 2.5;  // 2.5 kg pour une autruche
             break;
-        case CHAT:
+        case CHAT :
+            if (2025 - animal_trouve.annee_naissance < 2) {
+                quantiteCroquettes = 0.3;  // 300g pour un chat de moins de 2 ans
+            } else {
+                quantiteCroquettes = 0.05 * animal_trouve.poids;  // 5% du poids pour un adulte
+            }
+            break;
         case CHIEN:
             if (2025 - animal_trouve.annee_naissance < 2) {
                 quantiteCroquettes = 0.5;  // 500g pour un chat ou chien de moins de 2 ans
@@ -48,10 +59,10 @@ void nourriture() {
             }
             break;
         default:
-            printf("Espèce inconnue, pas de calcul de nourriture.\n");
+            printf("Cette espece n'existe pas donc on ne peux pas calculer le taux de croquettes par jour\n");
             return;
     }
 
     // Afficher la quantité de croquettes
-    printf("L'animal avec l'ID %d nécessite %.2f kg de croquettes par jour.\n", id, quantiteCroquettes);
+    printf("L'animal avec l'ID %d necessite %.2f kg de croquettes par jour.\n", id, quantiteCroquettes);
 }
