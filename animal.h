@@ -39,8 +39,7 @@ const char* especeVersChaine(Espece e);
 void adopterAnimal(); // Déclaration de la fonction
 int comparer(const char* a, const char* b); // Déclaration de la fonction comparer
 void afficherInventaire(); // Déclaration de la fonction afficherInventaire
-// void afficherNourriture(); // Déclaration de la fonction afficherNourriture
-int rechercherAnimaux(FILE *fichier, int idRecherche, Animal *resultat);
- // Déclaration de la fonction rechercherAnimaux
+void afficherNourriture(); // Déclaration de la fonction afficherNourriture
+
 
 #endif
