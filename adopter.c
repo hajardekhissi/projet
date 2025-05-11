@@ -11,10 +11,10 @@ void adopterAnimal() {
     char espece_chaine[20];
     char ligne[256]; // Pour lire les lignes
 
-    printf("Nous allons tout de suite démarrer l'adoption\n");
+    printf("Nous allons tout de suite demarrer l'adoption\n");
 
     // Demander l’ID de l’animal
-    printf("Entrez l'ID de l'animal à adopter : ");
+    printf("Entrez l'ID de l'animal a adopter : ");
     if (scanf("%d", &id_cherche) != 1) {
         printf("Veuillez entrer un nombre entier valide.\n");
         while (getchar() != '\n'); // vider le buffer
@@ -33,7 +33,7 @@ void adopterAnimal() {
     fclose(fichier_pour_recherche);
 
     if (trouve==0) {
-        printf("Désolé, aucun animal trouvé avec l'ID %d.\n", id_cherche);
+        printf("Desole, aucun animal trouve avec l'ID %d.\n", id_cherche);
         return;
     }
 
@@ -63,10 +63,9 @@ void adopterAnimal() {
             courant.espece = chaineVersEspece(espece_chaine);
 
             if (courant.id != id_cherche) {
-                fprintf(fichier_2, "%d;%[^;];%[^;];%d;%f;%[^\n]",
-
-                        &courant.id, courant.nom, especeVersChaine(courant.espece),
-                        &courant.annee_naissance, &courant.poids, courant.commentaire);
+                fprintf(fichier_2, "%d;%s;%s;%d;%.2f;%s\n",
+                courant.id, courant.nom, especeVersChaine(courant.espece),
+                courant.annee_naissance, courant.poids, courant.commentaire);
             }
         }
     }
@@ -85,5 +84,5 @@ void adopterAnimal() {
         return;
     }
 
-    printf("L'animal avec l'ID %d a été adopté avec succès !\n", id_cherche);
+    printf("L'animal avec l'ID %d a ete adopte avec succes !\n", id_cherche);
 }
