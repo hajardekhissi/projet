@@ -5,7 +5,7 @@
 
 // Fonction pour rechercher un animal par ID
 int rechercher_id(FILE *fichier, int idRecherche, Animal *resultat) {
-    char especeStr[20];
+    char espece_chaine[20];
     int trouve = 0;
 
     if (fichier == NULL) {
@@ -16,11 +16,11 @@ int rechercher_id(FILE *fichier, int idRecherche, Animal *resultat) {
     fseek(fichier, 0, SEEK_SET);
 
     while (fscanf(fichier, "%d;%[^;];%[^;];%d;%f;%[^\n]\n",
-                  &((*resultat).id), (*resultat).nom, especeStr,
+                  &((*resultat).id), (*resultat).nom, espece_chaine,
                   &((*resultat).annee_naissance), &((*resultat).poids), 
                   (*resultat).commentaire) == 6) {
         
-        (*resultat).espece = chaineVersEspece(especeStr);
+        (*resultat).espece = chaineVersEspece(espece_chaine);
 
         if ((*resultat).id == idRecherche) {
             trouve = 1;
@@ -36,6 +36,7 @@ int rechercher_id(FILE *fichier, int idRecherche, Animal *resultat) {
         printf("Nom: %s\n", (*resultat).nom);
         printf("Espece: %s\n", especeVersChaine((*resultat).espece));
         printf("Annee de naissance: %d\n", (*resultat).annee_naissance);
+        printf("Commentaire: %s\n", (*resultat).commentaire);
     }
 
     return trouve;
@@ -44,7 +45,7 @@ int rechercher_id(FILE *fichier, int idRecherche, Animal *resultat) {
 // Fonction pour rechercher un animal par nom
 void rechercher_nom(FILE *fichier) {
     Animal animal;
-    char especeStr[20];
+    char espece_chaine[20];
     int trouve = 0;
     char nom_recherche[50];
 
@@ -54,7 +55,7 @@ void rechercher_nom(FILE *fichier) {
     fseek(fichier, 0, SEEK_SET);
 
     while (fscanf(fichier, "%d;%[^;];%[^;];%d;%f;%[^\n]\n",
-                  &animal.id, animal.nom, especeStr,
+                  &animal.id, animal.nom, espece_chaine,
                   &animal.annee_naissance, &animal.poids, 
                   animal.commentaire) == 6) {
         
@@ -63,12 +64,13 @@ void rechercher_nom(FILE *fichier) {
             printf("\nAnimal trouve :\n");
             printf("ID: %d\n", animal.id);
             printf("Nom: %s\n", animal.nom);
-            printf("Espece: %s\n", especeStr);
-            printf("Année de naissance: %d\n", animal.annee_naissance);
+            printf("Espece: %s\n", espece_chaine);
+            printf("Annee de naissance: %d\n", animal.annee_naissance);
+            printf("Commentaire: %s\n", animal.commentaire);
         }
     }
 
-    if (!trouve) {
+    if (trouve==0) {
         printf("Aucun animal trouve avec le nom %s.\n", nom_recherche);
     }
 }
@@ -76,7 +78,7 @@ void rechercher_nom(FILE *fichier) {
 // Fonction pour rechercher un animal par âge
 int rechercher_age(FILE *fichier) {
     Animal animal;
-    char especeStr[20];
+    char espece_chaine[20];
     int trouve = 0;
     char choix[10];
     int annee_actuelle = 2025;
@@ -87,7 +89,7 @@ int rechercher_age(FILE *fichier) {
     fseek(fichier, 0, SEEK_SET);
 
     while (fscanf(fichier, "%d;%[^;];%[^;];%d;%f;%[^\n]\n",
-                  &animal.id, animal.nom, especeStr,
+                  &animal.id, animal.nom, espece_chaine,
                   &animal.annee_naissance, &animal.poids, 
                   animal.commentaire) == 6) {
         
@@ -99,7 +101,7 @@ int rechercher_age(FILE *fichier) {
             printf("\nAnimal trouve :\n");
             printf("ID: %d\n", animal.id);
             printf("Nom: %s\n", animal.nom);
-            printf("Espece: %s\n", especeStr);
+            printf("Espece: %s\n", espece_chaine);
             printf("Age: %d ans\n", age);
         }
     }
@@ -113,7 +115,7 @@ int rechercher_age(FILE *fichier) {
 // Fonction pour rechercher un animal par espèce
 void rechercher_espece(FILE *fichier) {
     Animal animal;
-    char especeStr[20];
+    char espece_chaine[20];
     int trouve = 0;
     char espece_recherchee[20];
 
@@ -123,49 +125,22 @@ void rechercher_espece(FILE *fichier) {
     fseek(fichier, 0, SEEK_SET);
 
     while (fscanf(fichier, "%d;%[^;];%[^;];%d;%f;%[^\n]\n",
-                  &animal.id, animal.nom, especeStr,
+                  &animal.id, animal.nom, espece_chaine,
                   &animal.annee_naissance, &animal.poids, 
                   animal.commentaire) == 6) {
         
-        if (strcmp(especeStr, espece_recherchee) == 0) {
+        if (strcmp(espece_chaine, espece_recherchee) == 0) {
             trouve = 1;
             printf("\nAnimal trouve :\n");
             printf("ID: %d\n", animal.id);
             printf("Nom: %s\n", animal.nom);
-            printf("Espece: %s\n", especeStr);
+            printf("Espece: %s\n", espece_chaine);
             printf("Année de naissance: %d\n", animal.annee_naissance);
         }
     }
 
     if (!trouve) {
-        printf("Aucun animal de l'espèce %s trouvé.\n", espece_recherchee);
+        printf("Aucun animal de l'espece %s trouve.\n", espece_recherchee);
     }
 }
 
-// Fonction pour rechercher un animal (utilisée par nourriture.c)
-int rechercherAnimaux(FILE *fichier, int idRecherche, Animal *resultat) {
-    char especeStr[20];
-    int trouve = 0;
-
-    if (fichier == NULL) {
-        printf("Erreur : fichier invalide.\n");
-        return 0;
-    }
-
-    fseek(fichier, 0, SEEK_SET);
-
-    while (fscanf(fichier, "%d;%[^;];%[^;];%d;%f;%[^\n]\n",
-                  &((*resultat).id), (*resultat).nom, especeStr,
-                  &((*resultat).annee_naissance), &((*resultat).poids), 
-                  (*resultat).commentaire) == 6) {
-        
-        (*resultat).espece = chaineVersEspece(especeStr);
-
-        if ((*resultat).id == idRecherche) {
-            trouve = 1;
-            break;
-        }
-    }
-
-    return trouve;
-}

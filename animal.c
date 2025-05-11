@@ -25,13 +25,13 @@ int comparer(const char *a, const char *b) {
 }
 
 // Implémentation manuelle de la copie de chaîne avec taille limite
-void copierChaine(char* dest, const char* src, int taille_max) {
+void copierChaine(char* a, const char* b, int taille_max) {
     int i = 0;
-    while (i < taille_max - 1 && src[i] != '\0') {
-        dest[i] = src[i];
+    while (i < taille_max - 1 && b[i] != '\0') {
+        a[i] = b[i];
         i++;
     }
-    dest[i] = '\0'; // Assurer la terminaison de la chaîne
+        a[i] = '\0'; // Assurer la terminaison de la chaîne
 }
 
 

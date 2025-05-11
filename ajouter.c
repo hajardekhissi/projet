@@ -15,16 +15,18 @@
 
 int compterAnimaux() {
     FILE *fichier = fopen("animaux/animaux.txt", "r");
-    if (!fichier) return 0;
+    if (fichier==0){
+        return 0;
+    }
 
-    int count = 0;
+    int compteur= 0;
     char ligne[512];
     while (fgets(ligne, sizeof(ligne), fichier)) {
-        count++;
+        compteur++;
     }
 
     fclose(fichier);
-    return count;
+    return compteur;
 }
 
 void ajouterAnimal() {
@@ -37,13 +39,13 @@ void ajouterAnimal() {
     int nb_animaux = compterAnimaux();
     if (nb_animaux >= MAX_ANIMAUX) {
         printf(ROUGE "\nLe refuge est plein ! Impossible d'ajouter un nouvel animal (%d max).\n" RESET, MAX_ANIMAUX);
-        return;
+   
     }
 
     FILE *fichier = fopen("animaux/animaux.txt", "a");
     if (fichier == NULL) {
         printf(ROUGE "Erreur : Impossible d'ouvrir le fichier des animaux pour l'ajout.\n" RESET);
-        return;
+ 
     }
 
     Animal nouvelAnimal;
@@ -56,7 +58,7 @@ void ajouterAnimal() {
     if (fgets(nouvelAnimal.nom, TAILLE_NOM, stdin) == NULL) {
         printf(ROUGE "Erreur lors de la lecture du nom.\n" RESET);
         fclose(fichier);
-        return;
+ 
     }
     nouvelAnimal.nom[strcspn(nouvelAnimal.nom, "\n")] = '\0';
 
@@ -96,7 +98,7 @@ void ajouterAnimal() {
     if (fgets(nouvelAnimal.commentaire, TAILLE_COMM, stdin) == NULL) {
         printf(ROUGE "Erreur lors de la lecture du commentaire.\n" RESET);
         fclose(fichier);
-        return;
+
     }
     nouvelAnimal.commentaire[strcspn(nouvelAnimal.commentaire, "\n")] = '\0';
 

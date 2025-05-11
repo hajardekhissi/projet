@@ -23,23 +23,31 @@ void afficherMenurRecherche(FILE *fichier) {
         printf("4. Retour\n");
         printf("Votre choix : ");
         scanf("%d", &choix);
-        while (getchar() != '\n');
+
+        while (getchar() != '\n') {
+            // Vider le buffer clavier
+        }
 
         switch (choix) {
-            case 1:
+            case 1: {
                 rechercher_nom(fichier);
                 break;
-            case 2:
+            }
+            case 2: {
                 rechercher_age(fichier);
                 break;
-            case 3:
+            }
+            case 3: {
                 rechercher_espece(fichier);
                 break;
-            case 4:
+            }
+            case 4: {
                 printf("Retour au menu principal...\n");
                 break;
-            default:
+            }
+            default: {
                 printf("Choix invalide!\n");
+            }
         }
     }
 }

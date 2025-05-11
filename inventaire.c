@@ -5,25 +5,33 @@
 
 
 void afficherInventaire() {
+    int total = 0;
+    int nb_chien = 0, nb_chat = 0, nb_hamster = 0, nb_autruche = 0;
+    Animal a;
+    char espece_chaine[50];
+    
+    
     FILE *f = fopen("animaux/animaux.txt", "r");
     if (f == NULL) {
         printf("Erreur : impossible d’ouvrir le fichier animaux.txt\n");
         return;
     }
 
-    int total = 0;
-    int nb_chien = 0, nb_chat = 0, nb_hamster = 0, nb_autruche = 0;
-    Animal a;
-    char especeStr[50];
 
     while (fscanf(f, "%d;%[^;];%[^;];%d;%f;%[^\n]\n",
-                  &(a.id), a.nom, especeStr, &(a.annee_naissance), &(a.poids), a.commentaire) == 6) {
+                  &(a.id), a.nom, espece_chaine, &(a.annee_naissance), &(a.poids), a.commentaire) == 6) {
         total++;
 
-        if (comparer(especeStr, "chien")) nb_chien++;
-        else if (comparer(especeStr, "chat")) nb_chat++;
-        else if (comparer(especeStr, "hamster")) nb_hamster++;
-        else if (comparer(especeStr, "autruche")) nb_autruche++;
+        if (comparer(espece_chaine, "chien")) {
+            nb_chien++;
+        }else if (comparer(espece_chaine, "chat")) {
+            nb_chat++;
+        }else if (comparer(espece_chaine, "hamster")) {
+            nb_hamster++;
+        }
+        else if (comparer(espece_chaine, "autruche")) {
+            nb_autruche++;
+        }
     }
 
     fclose(f);

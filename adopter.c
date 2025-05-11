@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-// Pas de string.h
+
 #include "animal.h"
 #include "rechercher.h"
 #include "adopter.h"
 
 void adopterAnimal() {
     int id_cherche;
-    Animal animal_trouve_data;
-    char especeStr[20];
+    Animal animal_trouve;
+    char espece_chaine[20];
     char ligne[256]; // Pour lire les lignes
 
     printf("Nous allons tout de suite démarrer l'adoption\n");
@@ -29,7 +29,7 @@ void adopterAnimal() {
         return;
     }
 
-    int trouve = rechercher_id(fichier_pour_recherche, id_cherche, &animal_trouve_data);
+    int trouve = rechercher_id(fichier_pour_recherche, id_cherche, &animal_trouve);
     fclose(fichier_pour_recherche);
 
     if (trouve==0) {
@@ -39,15 +39,15 @@ void adopterAnimal() {
 
     // Étape 2 : Ouvrir le fichier en lecture et un fichier temporaire en écriture
     FILE *fichier_original = fopen("animaux/animaux.txt", "r");
-    FILE *fichier_temp = fopen("animaux/animaux_temp.txt", "w");
+    FILE *fichier_2 = fopen("animaux/animaux_2.txt", "w");
 
-    if (fichier_original == NULL || fichier_temp == NULL) {
+    if (fichier_original == NULL || fichier_2 == NULL) {
         printf("Erreur lors de l'ouverture des fichiers.\n");
         if (fichier_original != NULL) {
             fclose(fichier_original);
         }
-        if (fichier_temp != NULL) {
-            fclose(fichier_temp);
+        if (fichier_2 != NULL) {
+            fclose(fichier_2);
         }
         return;
     }
@@ -55,22 +55,24 @@ void adopterAnimal() {
     // Lire chaque ligne et recopier sauf celle à supprimer
     while (fgets(ligne, sizeof(ligne), fichier_original)) {
         Animal courant;
-        if (sscanf(ligne, "%d;%s;%s;%d;%.2f;%s[^\n]", 
-                   &courant.id, courant.nom, especeStr,
+        if (sscanf(ligne, "%d;%[^;];%[^;];%d;%f;%[^\n]",
+ 
+                   &courant.id, courant.nom, espece_chaine,
                    &courant.annee_naissance, &courant.poids, courant.commentaire) == 6) {
 
-            courant.espece = chaineVersEspece(especeStr);
+            courant.espece = chaineVersEspece(espece_chaine);
 
             if (courant.id != id_cherche) {
-                fprintf(fichier_temp, "%d;%s;%s;%d;%.2f;%s\n",
-                        courant.id, courant.nom, especeVersChaine(courant.espece),
-                        courant.annee_naissance, courant.poids, courant.commentaire);
+                fprintf(fichier_2, "%d;%[^;];%[^;];%d;%f;%[^\n]",
+
+                        &courant.id, courant.nom, especeVersChaine(courant.espece),
+                        &courant.annee_naissance, &courant.poids, courant.commentaire);
             }
         }
     }
 
     fclose(fichier_original);
-    fclose(fichier_temp);
+    fclose(fichier_2);
 
     // Étape 3 : Remplacer l'ancien fichier par le temporaire
     if (remove("animaux/animaux.txt") != 0) {
@@ -78,7 +80,7 @@ void adopterAnimal() {
         return;
     }
 
-    if (rename("animaux/animaux_temp.txt", "animaux/animaux.txt") != 0) {
+    if (rename("animaux/animaux_2.txt", "animaux/animaux.txt") != 0) {
         printf("Erreur : impossible de renommer le fichier temporaire.\n");
         return;
     }
